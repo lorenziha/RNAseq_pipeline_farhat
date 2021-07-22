@@ -40,7 +40,7 @@ Figure 1: Schematic represenation of the pipeline
   
 2- Run the pipeline on the Lucus grid like:
   
-  *qsub ./RNAseq_counts.v3.sh
+   qsub ./RNAseq_counts.v3.sh
 
 
 
