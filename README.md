@@ -16,3 +16,9 @@ This pipeline performs the following processes using a number of fastq files as 
 
 7- Performs read quantification per annotatioin feature using countFeatues
 
+# Schematic represenation of the pipeline
+
+![image](https://user-images.githubusercontent.com/76788039/126709143-df4a9918-fdc2-42b6-80fa-0cbc862f5b6e.png)
+
+
+
