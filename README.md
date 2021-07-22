@@ -1,4 +1,4 @@
-# RNAseq_pipeline_farhat
+# RNAseq pipeline farhat
 
 This pipeline performs the following processes using a number of fastq files as input:
 
@@ -15,3 +15,4 @@ This pipeline performs the following processes using a number of fastq files as 
 6- Sorts reads by position and marks duplicated reads
 
 7- Performs read quantification per annotatioin feature using countFeatues
+
