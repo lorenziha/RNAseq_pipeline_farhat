@@ -47,7 +47,7 @@ do
 	echo Starting time `date`
 	echo fastqc -t 8 $file1 $file2
 	
-	#fastqc -t 8 $file1 $file2
+	fastqc -t 8 $file1 $file2
 	echo
 	echo Done!!! `date`
 	echo
@@ -57,7 +57,7 @@ module unload fastqc
 # Run multiQC to merge all fastQC files together
 
 module load multiqc
-#multiqc ${READS}/
+multiqc ${READS}/
 module unload multiqc
 
 ## Trimming reads with trimmomatic
@@ -83,7 +83,7 @@ do
 	echo java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads 8 -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
 	echo
 
-	#java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads 8 -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+	java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads 8 -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
 done <$input
 module unload trimmomatic
 module unload Java
@@ -98,7 +98,7 @@ do
         echo Starting time `date`
 	echo fastqc -t 8 $file1 $file2
 
-        #fastqc -t 8 $file1 $file2
+        fastqc -t 8 $file1 $file2
         echo
         echo Done!!! `date`
         echo
@@ -118,7 +118,7 @@ do
 	echo running hsat2 on ${prefix}
 	echo hisat2 -p 8 -x genome -1 ${READS}/${prefix}R1.paired.fastq.gz -2 ${READS}/${prefix}R2.paired.fastq.gz -S ${prefix}.sam
 	echo
-	#hisat2 -p 8 -x genome -1 ${READS}/${prefix}R1.paired.fastq.gz -2 ${READS}/${prefix}R2.paired.fastq.gz -S ${prefix}.sam 
+	hisat2 -p 8 -x genome -1 ${READS}/${prefix}R1.paired.fastq.gz -2 ${READS}/${prefix}R2.paired.fastq.gz -S ${prefix}.sam 
 	echo
 	echo Done!!
 	echo
@@ -135,13 +135,13 @@ while IFS= read -r prefix
 do
         echo SORTING SAM FILE ${prefix}
 	echo samtools view -hb ${prefix}.sam \| samtools sort -@ 8  -T sort.tmp -O BAM - \> ${prefix}.sorted.bam
-	#samtools view -hb ${prefix}.sam | samtools sort -@ 8  -T sort.tmp -O BAM - > ${prefix}.sorted.bam
+	samtools view -hb ${prefix}.sam | samtools sort -@ 8  -T sort.tmp -O BAM - > ${prefix}.sorted.bam
 	echo REMOVE DUPLICATES
 	echo java -jar ${EBROOTPICARD}/picard.jar MarkDuplicates I=${prefix}.sorted.bam O=${prefix}.sorted.dedup.bam M=${prefix}.sorted.dedup.txt READ_NAME_REGEX=null REMOVE_DUPLICATES=true
-	#java -jar ${EBROOTPICARD}/picard.jar MarkDuplicates I=${prefix}.sorted.bam O=${prefix}.sorted.dedup.bam M=${prefix}.sorted.dedup.txt READ_NAME_REGEX=null REMOVE_DUPLICATES=true
+	java -jar ${EBROOTPICARD}/picard.jar MarkDuplicates I=${prefix}.sorted.bam O=${prefix}.sorted.dedup.bam M=${prefix}.sorted.dedup.txt READ_NAME_REGEX=null REMOVE_DUPLICATES=true
 	echo GENERATING BAM INDEX
 	echo samtools index ${prefix}.sorted.dedup.bam
-	#samtools index ${prefix}.sorted.dedup.bam
+	samtools index ${prefix}.sorted.dedup.bam
 	
 	# Storing BAM file names for counting reads in bulk below
  
