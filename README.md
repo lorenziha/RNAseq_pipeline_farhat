@@ -14,11 +14,24 @@ This pipeline performs the following processes using a number of fastq files as 
 
 6- Sorts reads by position and marks duplicated reads
 
-7- Performs read quantification per annotatioin feature using countFeatues
+7- Performs read quantification per annotation feature using countFeatures program and outputs file with read counts per gene and a summary file with some read-count statistics.
 
-# Schematic represenation of the pipeline
-
+Figure 1: Schematic represenation of the pipeline
 ![image](https://user-images.githubusercontent.com/76788039/126709143-df4a9918-fdc2-42b6-80fa-0cbc862f5b6e.png)
 
+# Pipeline requirements
 
+1- Illumina paired-end RNAseq data in fastq format. 
+2- A reference genome already indexed for HISAT2.
+3- An annotation file in GTF format.
+4- A samples_prefix file with the prefixes used in the fastq files, one prefix per line.
+
+# Running instructions
+
+1- Set the following variables in the script:
+
+  GTF_ANNOTATION : Path to the annotation file in GTF format.
+  HISAT2_INDEXES : Path to the directory containing the reference index files.
+  input          : Path to the samples.prefix file
+  READS          : Path to the directory containing sequencing reads.
 
