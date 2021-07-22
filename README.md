@@ -30,8 +30,12 @@ Figure 1: Schematic represenation of the pipeline
 
 1- Set the following variables in the script:
 
-  GTF_ANNOTATION : Path to the annotation file in GTF format.
-  HISAT2_INDEXES : Path to the directory containing the reference index files.
-  input          : Path to the samples.prefix file
-  READS          : Path to the directory containing sequencing reads.
+  *GTF_ANNOTATION* : Path to the annotation file in GTF format.
+  
+  *HISAT2_INDEXES* : Path to the directory containing the reference index files.
+  
+  *input*          : Path to the samples.prefix file.
+  
+  *READS*          : Path to the directory containing sequencing reads.
+  
 
