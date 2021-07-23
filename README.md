@@ -17,7 +17,7 @@ This pipeline performs the following processes using a number of fastq files as 
 7- Performs read quantification per annotation feature using countFeatures program and outputs file with read counts per gene and a summary file with some read-count statistics.
 
 Figure 1: Schematic represenation of the pipeline
-![image](https://user-images.githubusercontent.com/76788039/126709143-df4a9918-fdc2-42b6-80fa-0cbc862f5b6e.png)
+![image](https://user-images.githubusercontent.com/76788039/126739580-8e9d6d5b-7ca4-4ef8-8a1b-e52ae33cc1c3.png)
 
 # Pipeline requirements
 
