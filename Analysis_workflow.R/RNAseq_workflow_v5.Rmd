@@ -13,7 +13,7 @@ knitr::opts_knit$set(root.dir = "/Users/lorenziha/OneDrive/PROJECTS/BIOINFO-615/
 ```
 
 ---
-title: "RNAseq analysis of experimental infections for Rima"
+title: "RNAseq analysis training for Farhat"
 author: Hernan Lorenzi
 output: html_document
 ---
