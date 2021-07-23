@@ -38,7 +38,7 @@ Figure 1: Schematic represenation of the pipeline
   
   *READS*          : Path to the directory containing sequencing reads.
   
-2- Run the pipeline on the Lucus grid like:
+2- Run the pipeline on Locus grid like:
   
    qsub ./RNAseq_counts.v3.sh
 
