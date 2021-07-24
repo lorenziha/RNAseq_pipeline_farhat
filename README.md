@@ -40,8 +40,10 @@ Figure 1: Schematic represenation of the pipeline
   
 2- Run the pipeline on Locus grid like:
   
+```
    qsub ./RNAseq_counts.v3.sh
-   
+```
+
 3- Process read counts per feature with R workflow to identify differentially expressed genes and overrepresented gene sets/GO terms.
 
 
