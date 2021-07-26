@@ -10,9 +10,9 @@ This pipeline performs the following processes using a number of fastq files as 
 
 4- Generates final report with Multiqc
 
-5- Performs read alignment with HSAT2
+5- Performs read alignment with STAR
 
-6- Sorts reads by position and marks duplicated reads
+6- Marks duplicated reads with picard MarkDuplicates
 
 7- Performs read quantification per annotation feature using countFeatures program and outputs file with read counts per gene and a summary file with some read-count statistics.
 
