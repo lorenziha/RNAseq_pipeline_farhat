@@ -189,10 +189,10 @@ do
 	echo
 	echo running STAR on ${prefix}
 	echo
-	echo STAR --runMode alignReads --runThreadN ${CPU} --genomeDir ${GENOME_DIR} --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --readFilesIn ${READS}/${prefix}_R1.paired.fastq.gz ${READS}/${prefix}_R2.paired.fastq.gz
+	echo STAR --runMode alignReads --runThreadN ${CPU} --genomeDir ${GENOME_DIR} --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --readFilesIn ${READS}/${prefix}.R1.paired.fastq.gz ${READS}/${prefix}.R2.paired.fastq.gz
 echo 
 
-	STAR --runMode alignReads --runThreadN ${CPU} --genomeDir ${GENOME_DIR} --readFilesCommand zcat --outFileNamePrefix ${prefix}. --outSAMtype BAM SortedByCoordinate --readFilesIn ${READS}/${prefix}_R1.paired.fastq.gz ${READS}/${prefix}_R2.paired.fastq.gz
+	STAR --runMode alignReads --runThreadN ${CPU} --genomeDir ${GENOME_DIR} --readFilesCommand zcat --outFileNamePrefix ${prefix}. --outSAMtype BAM SortedByCoordinate --readFilesIn ${READS}/${prefix}.R1.paired.fastq.gz ${READS}/${prefix}.R2.paired.fastq.gz
 	mv ${prefix}.Aligned.sortedByCoord.out.bam ${prefix}.sorted.bam
 	echo
 	echo Done!!
