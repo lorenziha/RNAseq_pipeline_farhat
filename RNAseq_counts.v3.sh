@@ -115,8 +115,8 @@ fi
 module load fastqc
 while IFS= read -r prefix
 do
-	file1=${READS}/${prefix}_R1.fastq.gz
-	file2=${READS}/${prefix}_R2.fastq.gz
+	file1=${READS}/${prefix}.R1.fastq.gz
+	file2=${READS}/${prefix}.R2.fastq.gz
 	echo
 	echo Running FASTQC on $file1 and $file2
 	echo Starting time `date`
@@ -146,12 +146,12 @@ module load trimmomatic
 
 while IFS= read -r prefix
 do
-	file1=${READS}/${prefix}_R1.fastq.gz
-	file2=${READS}/${prefix}_R2.fastq.gz
-	outP1=${READS}/${prefix}_R1.paired.fastq.gz
-	outP2=${READS}/${prefix}_R2.paired.fastq.gz
-	outUP1=${READS}/${prefix}_R1.unpaired.fastq.gz
-	outUP2=${READS}/${prefix}_R2.unpaired.fastq.gz
+	file1=${READS}/${prefix}.R1.fastq.gz
+	file2=${READS}/${prefix}.R2.fastq.gz
+	outP1=${READS}/${prefix}.R1.paired.fastq.gz
+	outP2=${READS}/${prefix}.R2.paired.fastq.gz
+	outUP1=${READS}/${prefix}.R1.unpaired.fastq.gz
+	outUP2=${READS}/${prefix}.R2.unpaired.fastq.gz
 	log=${READS}/${line}.trim.log
 
 	echo Trimming reads 
@@ -166,8 +166,8 @@ module unload Java
 module load fastqc
 while IFS= read -r prefix
 do
-        file1=${READS}/${prefix}_R1.paired.fastq.gz
-        file2=${READS}/${prefix}_R2.paired.fastq.gz
+        file1=${READS}/${prefix}.R1.paired.fastq.gz
+        file2=${READS}/${prefix}.R2.paired.fastq.gz
         echo
         echo Running FASTQC on $file1 and $file2
         echo Starting time `date`
