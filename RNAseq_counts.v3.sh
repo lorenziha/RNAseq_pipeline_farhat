@@ -122,7 +122,7 @@ do
 	echo Starting time `date`
 	echo fastqc -t ${CPU} $file1 $file2
 	
-	#fastqc -t ${CPU} $file1 $file2
+	fastqc -t ${CPU} $file1 $file2
 	echo
 	echo Done!!! `date`
 	echo
@@ -132,7 +132,7 @@ module unload fastqc
 # Run multiQC to merge all fastQC files together
 
 module load multiqc
-#multiqc ${READS}/
+multiqc ${READS}/
 module unload multiqc
 
 ## Trimming reads with trimmomatic
@@ -157,8 +157,8 @@ do
 	echo Trimming reads 
 	echo java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads ${CPU} -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
 	echo
-
-	#java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads ${CPU} -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+	java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.36.jar PE -threads ${CPU} -trimlog $log $file1 $file2 $outP1 $outUP1 $outP2 $outUP2 ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+	echo
 done <$input
 module unload trimmomatic
 module unload Java
@@ -173,7 +173,7 @@ do
         echo Starting time `date`
 	echo fastqc -t ${CPU} $file1 $file2
 
-        #fastqc -t ${CPU} $file1 $file2
+        fastqc -t ${CPU} $file1 $file2
         echo
         echo Done!!! `date`
         echo
@@ -193,7 +193,6 @@ do
 echo 
 
 	STAR --runMode alignReads --runThreadN ${CPU} --genomeDir ${GENOME_DIR} --readFilesCommand zcat --outFileNamePrefix ${prefix}. --outSAMtype BAM SortedByCoordinate --readFilesIn ${READS}/${prefix}_R1.paired.fastq.gz ${READS}/${prefix}_R2.paired.fastq.gz
-	# AB3261-L1Aligned.sortedByCoord.out.bam
 	mv ${prefix}.Aligned.sortedByCoord.out.bam ${prefix}.sorted.bam
 	echo
 	echo Done!!
@@ -209,9 +208,7 @@ module load picard
 files=()
 while IFS= read -r prefix 
 do
-        #echo SORTING SAM FILE ${prefix}
-	#echo samtools view -hb ${prefix}.sam \| samtools sort -@ ${CPU}  -T sort.tmp -O BAM - \> ${prefix}.sorted.bam
-	#samtools view -hb ${prefix}.sam | samtools sort -@ ${CPU}  -T sort.tmp -O BAM - > ${prefix}.sorted.bam
+	# No sorting needed. Sorting by coordinate is done during read mapping with STAR
 
 	echo REMOVE DUPLICATES
 	echo java -jar ${EBROOTPICARD}/picard.jar MarkDuplicates I=${prefix}.sorted.bam O=${prefix}.sorted.dedup.bam M=${prefix}.sorted.dedup.txt READ_NAME_REGEX=null REMOVE_DUPLICATES=true
@@ -230,13 +227,13 @@ done <$input
 module purge 
 
 # Counting reads per gene per sample with featureCounts  and store results in file "all.counts"
-
+# Duplicated reads are removed during picard MarkDuplicates
 module load subread
 echo
 echo COUNTING READS FROM THE FOLLOWING sorted.dedup.bam FILES:
 echo ${files[@]}
-echo featureCounts -a $GTF_ANNOTATION --ignoreDup -T ${CPU} -s 0 -F GTF -t exon -g gene_id -o all_counts.txt -R BAM --extraAttributes gene_name ${files[@]}
+echo featureCounts -a $GTF_ANNOTATION -T ${CPU} -s 0 -F GTF -t exon -g gene_id -o all_counts.txt -R BAM --extraAttributes gene_name ${files[@]}
 
-featureCounts -a $GTF_ANNOTATION --ignoreDup -T ${CPU} -s 0 -F GTF -t exon -g gene_id -o all_counts.txt -R BAM --extraAttributes gene_name -O ${files[@]} 
+featureCounts -a $GTF_ANNOTATION -T ${CPU} -s 0 -F GTF -t exon -g gene_id -o all_counts.txt -R BAM --extraAttributes gene_name -O ${files[@]} 
 
 module purge
